@@ -2,22 +2,29 @@
 
 
 {% block page_title %}
-    Post Detail
+    About
 {% endblock page_title %}
 
 {% block content %}
-    <div class="container mt-4">
+   <div class="container mt-4">
         <div class="row">
             <div class="col-9">
 
                 <div class="card shadow my-3 p-5">
-                    <h1>{{ post.title }}</h1>
-                    <p class="small text-muted mt-2">By: {{ post.author }}</p>
-                    <p class="mt-2">{{ post.text }}</p>
-                    <div>
-                        <a href="{% url 'post_update' post.id %}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="{% url 'post_delete' post.id %}" class="btn btn-sm btn-danger">Delete</a>
-                    </div>
+                    <h1>About we</h1>
+                    <p class="small text-muted mt-2">by:lenis </p>
+                    <p class="mt-2">
+                        I'm fardin
+                        We love python and django. So we created a blog site to share our thoughts!
+                        Nick Richardson described the translation “like extreme Mallarmé,
+                        or a Burroughsian cut-up, or a paragraph of Finnegans Wake.
+                        Bits of it have surprising power:
+                        the desperate insistence on loving and pursuing sorrow,
+                        for instance, that is cheated out of its justification
+                        – an incomplete object that has been either
+                        fished for, or wished for.”
+                    </p>
+
                 </div>
 
                 <div class="card shadow my-3 p-5">
@@ -45,21 +52,6 @@
                     </form>
                 </div>
             </div>
-            <div class="col-3">
 
-                <div class="card my-4">
-                    <h5 class="card-header">About</h5>
-                    <div class="card-body">
-                        <p class="card-text">We love python and django. So we created a blog site to share our
-                            thoughts</p>
-                        <a href="{% url 'about' %}"
-                           class="btn btn-sm btn-danger">
-                            More...
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 {% endblock content %}
