@@ -38,17 +38,34 @@ def post_detail_view(request, pk):
             comment_form = CommentForm()
     else:
         comment_form = CommentForm()
-    return render(request, 'blog/post_detail.html',{
+    return render(request, 'blog/post_detail.html', {
         'post': post,
         'comments': post_comments,
         'comment_form': comment_form,
     })
 
 
-class CreatePostView(LoginRequiredMixin, generic.CreateView):
-    form_class = PostForm
-    template_name = 'blog/create_post.html'
-    context_object_name = 'form'
+@login_required
+def post_create_view(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            new_post = post_form.save(commit=False)
+            new_post.author = request.user
+            new_post.user = request.user
+            new_post.save()
+            return redirect('blog')
+    else:
+        post_form = PostForm()
+
+    return render(request, 'blog/create_post.html', context={'form': post_form})
+
+
+
+# class CreatePostView(LoginRequiredMixin, generic.CreateView):
+#     form_class = PostForm
+#     template_name = 'blog/create_post.html'
+#     context_object_name = 'form'
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
