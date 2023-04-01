@@ -1,5 +1,6 @@
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
@@ -18,29 +19,36 @@ class PostListView(generic.ListView):
         return Post.objects.filter(status='pup').order_by('-datetime_modified')
 
 
-class PostDetailView(generic.DetailView):
+class PostDetailView(LoginRequiredMixin, generic.DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
 
 
-class CreatePostView(generic.CreateView):
+class CreatePostView(LoginRequiredMixin, generic.CreateView):
     form_class = PostForm
     template_name = 'blog/create_post.html'
     context_object_name = 'form'
 
 
-class PostUpdateView(generic.UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Post
     template_name = 'blog/create_post.html'
     form_class = PostForm
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
-class PostDeleteView(generic.DeleteView):
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Post
     template_name = 'blog/post_delete.html'
     success_url = reverse_lazy('blog')
 
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
 # def blog_post_list_view(request):
 #     post_list = Post.objects.filter(status='pup').order_by('-datetime_modified')
