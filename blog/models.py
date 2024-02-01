@@ -14,7 +14,7 @@ class Post(models.Model):
     datetime_create = models.DateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=3)
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='users')
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='posts')
 
     def __str__(self):
         return self.title
