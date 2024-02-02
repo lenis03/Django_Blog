@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     # third party
     'crispy_forms',
-    'crispy_bootstrap4',
+    'crispy_bootstrap5',
 
     # my app
     'blog',
@@ -135,8 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'blog'
 LOGOUT_REDIRECT_URL = 'blog'
 
-# crispy forms settings
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# crispy form config
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # static files config
 STATIC_URL = '/static/'

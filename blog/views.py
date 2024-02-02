@@ -35,7 +35,7 @@ def post_detail_view(request, pk):
             new_comment.post = post
             new_comment.user = request.user
             new_comment.save()
-            comment_form = CommentForm()
+            comment_form = CommentForm()  # This must be check
     else:
         comment_form = CommentForm()
     return render(request, 'blog/post_detail.html', {
